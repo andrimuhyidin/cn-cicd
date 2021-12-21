@@ -1,0 +1,59 @@
+{{- $Pipelines := .Values.Pipelines.staging }}
+{{- if $Pipelines.enabled -}}
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: staging
+spec:
+  tasks:
+  - name: checkout
+    taskRef:
+      name: checkout
+  - name: unit-test
+    taskRef:
+      name: unit-test
+    runAfter:
+     - checkout
+  - name: code-review
+    taskRef:
+      name: code-review
+    runAfter:
+     - unit-test
+  - name: build
+    taskRef:
+      name: build
+    runAfter:
+     - code-review
+  - name: artifactory
+    taskRef:
+      name: artifactory
+    runAfter:
+     - build
+  - name: deploy
+    taskRef:
+      name: deploy
+    runAfter:
+     - artifactory
+  - name: performance-test
+    taskRef:
+      name: performance-test
+    runAfter:
+     - deploy
+  - name: functionality-test
+    taskRef:
+      name: functionality-test
+    runAfter:
+     - deploy
+  - name: security-test
+    taskRef:
+      name: security-test
+    runAfter:
+     - deploy
+  - name: notification
+    taskRef:
+      name: notification
+    runAfter:
+     - performance-test
+     - functionality-test
+     - security-test
+{{- end }}

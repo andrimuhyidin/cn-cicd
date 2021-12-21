@@ -1,0 +1,17 @@
+# Label or global apps configuration
+application:
+  name: apps1
+  description: "This apps us for sample hackathon"
+
+# Services Pipeline
+services:
+  - name: service1
+    pipelines:
+      develop: true
+      staging: true
+      production: true
+      
+    # Enable if you have specific task to run
+    tasks:
+      checkout: true
+      unitTest: true      

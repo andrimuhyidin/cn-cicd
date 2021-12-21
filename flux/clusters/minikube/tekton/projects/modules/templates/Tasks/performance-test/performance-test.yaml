@@ -1,0 +1,15 @@
+{{- $Tasks := .Values.Tasks.performanceTest }}
+{{- if $Tasks.enabled -}}
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: performance-test
+spec:
+  steps:
+    - name: performance-test
+      image: alpine
+      command:
+        - echo
+      args:
+        - "Run performance-test"
+{{- end }}

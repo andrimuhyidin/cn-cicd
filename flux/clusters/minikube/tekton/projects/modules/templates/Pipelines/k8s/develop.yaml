@@ -1,0 +1,42 @@
+{{- $Pipelines := .Values.Pipelines.develop }} 
+{{- if $Pipelines.enabled -}}
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: develop
+spec:
+  tasks:
+  - name: checkout
+    taskRef:
+      name: checkout
+  - name: unit-test
+    taskRef:
+      name: unit-test
+    runAfter:
+     - checkout
+  - name: code-review
+    taskRef:
+      name: code-review
+    runAfter:
+     - unit-test
+  - name: build
+    taskRef:
+      name: build
+    runAfter:
+     - code-review
+  - name: artifactory
+    taskRef:
+      name: artifactory
+    runAfter:
+     - build
+  - name: deploy
+    taskRef:
+      name: deploy
+    runAfter:
+     - artifactory
+  - name: notification
+    taskRef:
+      name: notification
+    runAfter:
+     - deploy
+{{- end }}

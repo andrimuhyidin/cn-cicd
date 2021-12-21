@@ -1,0 +1,18 @@
+{{- $app := .Values.application }}
+{{ range $service := .Values.services }}
+{{- if $service.tasks.unitTest -}}
+---
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: {{ $app.name }}-{{ $service.name }}-unit-test
+  generateName: {{ $app.name }}-{{ $service.name }}-unit-test
+spec:
+  resources: {}
+  serviceAccountName: ""
+  taskRef:
+    name: unit-test
+status:
+  podName: ""
+{{- end }}
+{{- end }}

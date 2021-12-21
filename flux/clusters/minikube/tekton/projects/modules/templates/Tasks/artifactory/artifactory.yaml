@@ -1,0 +1,15 @@
+{{- $Tasks := .Values.Tasks.artifactory }}
+{{- if $Tasks.enabled -}}
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: artifactory
+spec:
+  steps:
+    - name: artifactory
+      image: alpine
+      command:
+        - echo
+      args:
+        - "Run artifactory"
+{{- end }}

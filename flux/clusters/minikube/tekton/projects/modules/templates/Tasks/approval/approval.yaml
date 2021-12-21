@@ -1,0 +1,15 @@
+{{- $Tasks := .Values.Tasks.approval }}
+{{- if $Tasks.enabled -}}
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: approval
+spec:
+  steps:
+    - name: approval
+      image: alpine
+      command:
+        - echo
+      args:
+        - "Run approval"
+{{- end }}

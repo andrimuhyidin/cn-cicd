@@ -1,0 +1,15 @@
+{{- $Tasks := .Values.Tasks.notification }}
+{{- if $Tasks.enabled -}}
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: notification
+spec:
+  steps:
+    - name: notification
+      image: alpine
+      command:
+        - echo
+      args:
+        - "Run notification"
+{{- end }}

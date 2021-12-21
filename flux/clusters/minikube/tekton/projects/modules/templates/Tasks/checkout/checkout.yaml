@@ -1,0 +1,15 @@
+{{- $Tasks := .Values.Tasks.checkout }}
+{{- if $Tasks.enabled -}}
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: checkout
+spec:
+  steps:
+    - name: checkout
+      image: alpine
+      command:
+        - echo
+      args:
+        - "Run checkout repository"
+{{- end }}

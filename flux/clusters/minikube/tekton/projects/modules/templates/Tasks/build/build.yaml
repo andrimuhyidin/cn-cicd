@@ -1,0 +1,15 @@
+{{- $Tasks := .Values.Tasks.build }}
+{{- if $Tasks.enabled -}}
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build
+spec:
+  steps:
+    - name: build
+      image: alpine
+      command:
+        - echo
+      args:
+        - "Run build"
+{{- end }}

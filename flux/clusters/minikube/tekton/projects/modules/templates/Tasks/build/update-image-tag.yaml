@@ -1,0 +1,15 @@
+{{- $Tasks := .Values.Tasks.updateImageTag }}
+{{- if $Tasks.enabled -}}
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: update-image-tag
+spec:
+  steps:
+    - name: update-image-tag
+      image: alpine
+      command:
+        - echo
+      args:
+        - "Run update-image-tag"
+{{- end }}

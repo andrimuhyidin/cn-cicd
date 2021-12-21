@@ -1,0 +1,37 @@
+{{- $Pipelines := .Values.Pipelines.production }}
+{{- if $Pipelines.enabled -}}
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: production
+spec:
+  tasks:
+  - name: update-image-tag
+    taskRef:
+      name: update-image-tag
+  - name: artifactory
+    taskRef:
+      name: artifactory
+    runAfter:
+     - update-image-tag
+  - name: deploy
+    taskRef:
+      name: deploy
+    runAfter:
+     - artifactory
+  - name: sanity-test
+    taskRef:
+      name: sanity-test
+    runAfter:
+     - deploy
+  - name: approval
+    taskRef:
+      name: approval
+    runAfter:
+     - sanity-test
+  - name: notification
+    taskRef:
+      name: notification
+    runAfter:
+     - approval
+{{- end }}

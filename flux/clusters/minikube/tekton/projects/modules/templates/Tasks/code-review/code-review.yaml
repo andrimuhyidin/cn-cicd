@@ -1,0 +1,15 @@
+{{- $Tasks := .Values.Tasks.codeReview }}
+{{- if $Tasks.enabled -}}
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: code-review
+spec:
+  steps:
+    - name: code-review
+      image: alpine
+      command:
+        - echo
+      args:
+        - "Run code-review"
+{{- end }}

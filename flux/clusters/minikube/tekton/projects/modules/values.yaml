@@ -1,0 +1,35 @@
+Pipelines:
+  develop:
+    enabled: true
+  staging:
+    enabled: true
+  production:
+    enabled: true
+
+Tasks:
+  checkout:
+    enabled: true
+  unitTest:
+    enabled: true
+  codeReview:
+    enabled: true
+  build:
+    enabled: true
+  updateImageTag:
+    enabled: true
+  artifactory:
+    enabled: true
+  deploy:
+    enabled: true
+  functionalityTest:
+    enabled: true
+  performanceTest:
+    enabled: true
+  securityTest:
+    enabled: true
+  sanityTest:
+    enabled: true
+  approval:
+    enabled: true
+  notification:
+    enabled: true

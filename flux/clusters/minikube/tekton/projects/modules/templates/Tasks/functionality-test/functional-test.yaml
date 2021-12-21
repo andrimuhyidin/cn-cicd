@@ -1,0 +1,15 @@
+{{- $Tasks := .Values.Tasks.functionalityTest }}
+{{- if $Tasks.enabled -}}
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: functionality-test
+spec:
+  steps:
+    - name: functionality-test
+      image: alpine
+      command:
+        - echo
+      args:
+        - "Run functionality-test"
+{{- end }}

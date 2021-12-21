@@ -1,0 +1,14 @@
+{{- $app := .Values.application }}
+{{ range $service := .Values.services }}
+{{- if $service.pipelines.production -}}
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: {{ $app.name }}-{{ $service.name }}-production
+  generateName: {{ $app.name }}-{{ $service.name }}-production
+spec:
+  pipelineRef:
+    name: production
+{{- end }}
+{{- end }}

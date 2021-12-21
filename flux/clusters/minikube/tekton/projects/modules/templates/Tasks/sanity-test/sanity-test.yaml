@@ -1,0 +1,15 @@
+{{- $Tasks := .Values.Tasks.sanityTest }}
+{{- if $Tasks.enabled -}}
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: sanity-test
+spec:
+  steps:
+    - name: sanity-test
+      image: alpine
+      command:
+        - echo
+      args:
+        - "Run sanity-test"
+{{- end }}

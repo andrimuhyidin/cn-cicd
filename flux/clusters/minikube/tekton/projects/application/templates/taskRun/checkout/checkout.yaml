@@ -1,0 +1,18 @@
+{{- $app := .Values.application }}
+{{ range $service := .Values.services }}
+{{- if $service.tasks.checkout -}}
+---
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: {{ $app.name }}-{{ $service.name }}-checkout
+  generateName: {{ $app.name }}-{{ $service.name }}-checkout
+spec:
+  resources: {}
+  serviceAccountName: ""
+  taskRef:
+    name: checkout
+status:
+  podName: ""
+{{- end }}
+{{- end }}
